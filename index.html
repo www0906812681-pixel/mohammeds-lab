@@ -8,7 +8,7 @@
     <style>
         :root {
             --bg-color: #0b1329;
-            --card-bg: #131c35;
+            --card-bg: rgba(19, 28, 53, 0.92);
             --text-color: #f8fafc;
             --text-muted: #94a3b8;
             --primary: #38bdf8;
@@ -19,7 +19,7 @@
 
         [data-theme="light"] {
             --bg-color: #f1f5f9;
-            --card-bg: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.95);
             --text-color: #0f172a;
             --text-muted: #475569;
             --primary: #0284c7;
@@ -33,12 +33,11 @@
             margin: 0;
             padding: 0;
             font-family: 'Cairo', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         body {
-            background: linear-gradient(rgba(11, 19, 41, 0.88), rgba(11, 19, 41, 0.92)), 
-                        url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000&auto=format&fit=crop') no-repeat center center fixed;
-            background-size: cover;
+            background-color: var(--bg-color);
             color: var(--text-color);
             display: flex;
             justify-content: center;
@@ -51,9 +50,10 @@
             width: 100%;
             max-width: 850px;
             background: var(--card-bg);
+            backdrop-filter: blur(10px);
             border: 2px solid var(--border-color);
-            border-radius: 12px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            border-radius: 14px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
             overflow: hidden;
             display: flex;
             flex-direction: column;
@@ -111,20 +111,21 @@
         }
 
         .browser-content {
-            padding: 20px;
-            max-height: 82vh;
+            padding: 25px;
+            max-height: 85vh;
             overflow-y: auto;
         }
 
         header {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
+        /* MS Logo Styling */
         .ms-logo {
-            width: 85px;
-            height: 85px;
-            background: linear-gradient(135deg, #2563eb, #38bdf8);
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
             border-radius: 50%;
             display: flex;
             justify-content: center;
@@ -132,73 +133,80 @@
             font-size: 34px;
             font-weight: 900;
             color: #ffffff;
-            margin: 0 auto 12px auto;
-            box-shadow: 0 0 20px var(--primary-glow);
-            border: 3px solid rgba(255, 255, 255, 0.6);
-            letter-spacing: -1px;
+            margin: 0 auto 15px auto;
+            box-shadow: 0 0 25px rgba(255, 118, 140, 0.5);
+            border: 3px solid rgba(255, 255, 255, 0.8);
+            font-family: 'Poppins', cursive, sans-serif;
         }
 
         .title-frame {
             display: inline-block;
-            padding: 8px 20px;
-            border-radius: 12px;
+            padding: 10px 24px;
+            border-radius: 14px;
             background: var(--card-bg);
             border: 2px solid var(--border-color);
-            box-shadow: 0 0 15px var(--primary-glow);
-            margin-bottom: 8px;
+            box-shadow: 0 0 20px var(--primary-glow);
+            margin-bottom: 10px;
         }
 
         h1 {
             color: var(--primary);
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 900;
         }
 
         p.subtitle {
             color: var(--text-muted);
-            font-size: 1rem;
+            font-size: 1.05rem;
         }
 
         .section-title {
             color: var(--text-color);
-            font-size: 1.25rem;
-            margin-bottom: 15px;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
             border-bottom: 2px dashed var(--border-color);
-            padding-bottom: 6px;
+            padding-bottom: 8px;
         }
 
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
         }
 
         .card {
             background: var(--bg-color);
             border: 2px solid var(--border-color);
-            border-radius: 12px;
-            padding: 18px;
+            border-radius: 14px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 8px 25px var(--primary-glow);
+            transform: translateY(-4px);
         }
 
         .card-icon {
-            font-size: 28px;
-            margin-bottom: 8px;
+            font-size: 30px;
+            margin-bottom: 10px;
         }
 
         .card h3 {
             color: var(--primary);
-            font-size: 1.1rem;
-            margin-bottom: 6px;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
         }
 
         .card p {
             color: var(--text-muted);
-            font-size: 0.88rem;
-            line-height: 1.5;
-            margin-bottom: 12px;
+            font-size: 0.92rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
         }
 
         .btn-try {
@@ -206,14 +214,19 @@
             background: linear-gradient(135deg, #2563eb, #38bdf8);
             color: #ffffff;
             border: none;
-            padding: 8px;
+            padding: 10px;
             border-radius: 8px;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             cursor: pointer;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
         }
 
-        /* Modal Overlay */
+        .btn-try:hover {
+            opacity: 0.9;
+        }
+
+        /* Modal Box */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -231,14 +244,358 @@
         .modal-box {
             background: var(--card-bg);
             border: 2px solid var(--primary);
-            border-radius: 14px;
-            max-width: 380px;
+            border-radius: 16px;
+            max-width: 400px;
             width: 100%;
-            padding: 20px;
+            padding: 22px;
             position: relative;
         }
 
         .close-btn {
             position: absolute;
             top: 10px;
-            left: 15
+            left: 15px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 24px;
+            cursor: pointer;
+        }
+        [dir="ltr"] .close-btn { left: auto; right: 15px; }
+
+        .modal-box h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .tool-input-group {
+            margin-bottom: 12px;
+            text-align: right;
+        }
+        [dir="ltr"] .tool-input-group { text-align: left; }
+
+        .tool-input-group label {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        .tool-input-group input {
+            width: 100%;
+            padding: 9px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+
+        .tool-result {
+            margin-top: 12px;
+            padding: 10px;
+            background: var(--bg-color);
+            border-radius: 8px;
+            border: 1px dashed var(--primary);
+            color: #10b981;
+            font-weight: 700;
+            text-align: center;
+            display: none;
+        }
+
+        /* Calculator Styles */
+        .calc-screen {
+            background: var(--bg-color);
+            color: var(--primary);
+            font-size: 1.5rem;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: left;
+            margin-bottom: 12px;
+            font-family: 'Fira Code', monospace;
+            border: 1px solid var(--border-color);
+            min-height: 50px;
+            word-break: break-all;
+        }
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+        .calc-btn {
+            background: var(--bg-color);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .calc-btn:hover { background: var(--primary); color: #fff; }
+
+        footer {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="browser-window">
+        <!-- Browser Header Bar -->
+        <div class="browser-header">
+            <div class="browser-dots">
+                <div class="dot dot-red"></div>
+                <div class="dot dot-yellow"></div>
+                <div class="dot dot-green"></div>
+            </div>
+            <div class="browser-url-bar">https://mohammeds-lab.github.io</div>
+            <div class="browser-controls">
+                <button class="control-btn" onclick="toggleTheme()">☀️/🌙</button>
+                <button class="control-btn" id="langToggleBtn" onclick="toggleLanguage()">EN</button>
+            </div>
+        </div>
+
+        <!-- Browser Content Body -->
+        <div class="browser-content">
+            <header>
+                <!-- MS Logo -->
+                <div class="ms-logo">MS</div>
+                <div class="title-frame">
+                    <h1 id="main-title">مرحبا بك في موقع محمد</h1>
+                </div>
+                <p class="subtitle" id="main-subtitle">مساحتي الخاصة لعرض مشاريعي البرمجية وتطويرها 🚀</p>
+            </header>
+
+            <main class="container">
+                <h2 class="section-title" id="section-heading">🛠️ معرض المشاريع</h2>
+                
+                <div class="projects-grid">
+                    <!-- Project 1 -->
+                    <div class="card">
+                        <div>
+                            <div class="card-icon">🎨</div>
+                            <h3 id="p1-title">حاسبة تكلفة الطلاء</h3>
+                            <p id="p1-desc">أداة تساعد دهاني المنازل في حساب مساحة الغرفة والتكلفة الإجمالية بدقة.</p>
+                        </div>
+                        <button class="btn-try" id="p1-btn" onclick="openPaintTool()">جرب الأداة 🚀</button>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="card">
+                        <div>
+                            <div class="card-icon">🎬</div>
+                            <h3 id="p2-title">صانع أسماء يوتيوب</h3>
+                            <p id="p2-desc">أداة تولد أفكار وأسماء مبتكرة لقنوات اليوتيوب بناءً على المجال.</p>
+                        </div>
+                        <button class="btn-try" id="p2-btn" onclick="openYTTool()">جرب الأداة 🚀</button>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="card">
+                        <div>
+                            <div class="card-icon">🔢</div>
+                            <h3 id="p3-title">الآلة الحاسبة المتطورة</h3>
+                            <p id="p3-desc">آلة حاسبة تفاعلية حديثة وسريعة للقيام بالعمليات الحسابية بكفاءة.</p>
+                        </div>
+                        <button class="btn-try" id="p3-btn" onclick="openCalcTool()">جرب الأداة 🚀</button>
+                    </div>
+                </div>
+            </main>
+
+            <footer>
+                <p id="footer-text">تم التطوير بواسطة محمد © 2026</p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Modal Box Overlay -->
+    <div class="modal-overlay" id="modalTool" onclick="outsideClose(event)">
+        <div class="modal-box">
+            <button class="close-btn" onclick="closeModal()">×</button>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentLang = 'ar';
+        let currentTheme = 'dark';
+
+        // Auto system theme detection
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+            setTheme('light');
+        }
+
+        function setTheme(theme) {
+            currentTheme = theme;
+            document.getElementById('html-root').setAttribute('data-theme', theme);
+        }
+
+        function toggleTheme() {
+            setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        }
+
+        const translations = {
+            ar: {
+                title: "مختبر محمد | Mohammed's Lab",
+                mainTitle: "مرحبا بك في موقع محمد",
+                mainSubtitle: "مساحتي الخاصة لعرض مشاريعي البرمجية وتطويرها 🚀",
+                sectionHeading: "🛠️ معرض المشاريع",
+                p1Title: "حاسبة تكلفة الطلاء",
+                p1Desc: "أداة تساعد دهاني المنازل في حساب مساحة الغرفة والتكلفة الإجمالية بدقة.",
+                p2Title: "صانع أسماء يوتيوب",
+                p2Desc: "أداة تولد أفكار وأسماء مبتكرة لقنوات اليوتيوب بناءً على المجال.",
+                p3Title: "الآلة الحاسبة المتطورة",
+                p3Desc: "آلة حاسبة تفاعلية حديثة وسريعة للقيام بالعمليات الحسابية بكفاءة.",
+                tryBtn: "جرب الأداة 🚀",
+                footerText: "تم التطوير بواسطة محمد © 2026"
+            },
+            en: {
+                title: "Mohammed's Lab",
+                mainTitle: "Welcome to Mohammed's Lab",
+                mainSubtitle: "My personal space to showcase and develop my programming projects 🚀",
+                sectionHeading: "🛠️ Projects Portfolio",
+                p1Title: "Wall Paint Cost Calculator",
+                p1Desc: "A tool that helps house painters calculate room area and total cost accurately.",
+                p2Title: "YouTube Name Generator",
+                p2Desc: "A tool that generates creative ideas and names for YouTube channels.",
+                p3Title: "Advanced Calculator",
+                p3Desc: "A modern interactive calculator for performing arithmetic operations.",
+                tryBtn: "Try Tool 🚀",
+                footerText: "Developed by Mohammed © 2026"
+            }
+        };
+
+        function toggleLanguage() {
+            const root = document.getElementById('html-root');
+            if (currentLang === 'ar') {
+                currentLang = 'en';
+                root.setAttribute('lang', 'en');
+                root.setAttribute('dir', 'ltr');
+                document.getElementById('langToggleBtn').innerText = "AR";
+            } else {
+                currentLang = 'ar';
+                root.setAttribute('lang', 'ar');
+                root.setAttribute('dir', 'rtl');
+                document.getElementById('langToggleBtn').innerText = "EN";
+            }
+            const t = translations[currentLang];
+            document.getElementById('page-title').innerText = t.title;
+            document.getElementById('main-title').innerText = t.mainTitle;
+            document.getElementById('main-subtitle').innerText = t.mainSubtitle;
+            document.getElementById('section-heading').innerText = t.sectionHeading;
+            document.getElementById('p1-title').innerText = t.p1Title;
+            document.getElementById('p1-desc').innerText = t.p1Desc;
+            document.getElementById('p2-title').innerText = t.p2Title;
+            document.getElementById('p2-desc').innerText = t.p2Desc;
+            document.getElementById('p3-title').innerText = t.p3Title;
+            document.getElementById('p3-desc').innerText = t.p3Desc;
+            document.getElementById('p1-btn').innerText = t.tryBtn;
+            document.getElementById('p2-btn').innerText = t.tryBtn;
+            document.getElementById('p3-btn').innerText = t.tryBtn;
+            document.getElementById('footer-text').innerText = t.footerText;
+        }
+
+        function closeModal() {
+            document.getElementById('modalTool').style.display = 'none';
+        }
+
+        function outsideClose(e) {
+            if (e.target.id === 'modalTool') closeModal();
+        }
+
+        function openPaintTool() {
+            document.getElementById('modalContent').innerHTML = `
+                <h3>🎨 حاسبة تكلفة الطلاء</h3>
+                <div class="tool-input-group"><label>الطول (م):</label><input type="number" id="length" placeholder="5"></div>
+                <div class="tool-input-group"><label>العرض (م):</label><input type="number" id="width" placeholder="4"></div>
+                <div class="tool-input-group"><label>سعر المتر:</label><input type="number" id="price" placeholder="10"></div>
+                <button class="btn-try" onclick="calcPaint()">احسب التكلفة</button>
+                <div class="tool-result" id="paintResult"></div>
+            `;
+            document.getElementById('modalTool').style.display = 'flex';
+        }
+
+        function calcPaint() {
+            let l = parseFloat(document.getElementById('length').value) || 0;
+            let w = parseFloat(document.getElementById('width').value) || 0;
+            let p = parseFloat(document.getElementById('price').value) || 0;
+            let area = l * w;
+            let total = area * p;
+            let res = document.getElementById('paintResult');
+            res.style.display = 'block';
+            res.innerHTML = `المساحة: ${area} م² | التكلفة: ${total} $`;
+        }
+
+        function openYTTool() {
+            document.getElementById('modalContent').innerHTML = `
+                <h3>🎬 صانع أسماء يوتيوب</h3>
+                <div class="tool-input-group"><label>المجال:</label><input type="text" id="niche" placeholder="تقنية، جيمنج..."></div>
+                <button class="btn-try" onclick="calcYT()">توليد الأسماء</button>
+                <div class="tool-result" id="ytResult"></div>
+            `;
+            document.getElementById('modalTool').style.display = 'flex';
+        }
+
+        function calcYT() {
+            let niche = document.getElementById('niche').value || 'عام';
+            let names = [`قناة ${niche} الاحترافية`, `عالم ${niche}`, `${niche} برو`];
+            let res = document.getElementById('ytResult');
+            res.style.display = 'block';
+            res.innerHTML = names.join('<br>');
+        }
+
+        let calcInput = '';
+        function openCalcTool() {
+            calcInput = '';
+            document.getElementById('modalContent').innerHTML = `
+                <h3>🔢 الآلة الحاسبة</h3>
+                <div class="calc-screen" id="calcScreen">0</div>
+                <div class="calc-grid">
+                    <button class="calc-btn" onclick="cApp('7')">7</button>
+                    <button class="calc-btn" onclick="cApp('8')">8</button>
+                    <button class="calc-btn" onclick="cApp('9')">9</button>
+                    <button class="calc-btn" onclick="cApp('/')">÷</button>
+                    <button class="calc-btn" onclick="cApp('4')">4</button>
+                    <button class="calc-btn" onclick="cApp('5')">5</button>
+                    <button class="calc-btn" onclick="cApp('6')">6</button>
+                    <button class="calc-btn" onclick="cApp('*')">×</button>
+                    <button class="calc-btn" onclick="cApp('1')">1</button>
+                    <button class="calc-btn" onclick="cApp('2')">2</button>
+                    <button class="calc-btn" onclick="cApp('3')">3</button>
+                    <button class="calc-btn" onclick="cApp('-')">-</button>
+                    <button class="calc-btn" onclick="cApp('0')">0</button>
+                    <button class="calc-btn" onclick="cClr()">C</button>
+                    <button class="calc-btn" onclick="cEval()">=</button>
+                    <button class="calc-btn" onclick="cApp('+')">+</button>
+                </div>
+            `;
+            document.getElementById('modalTool').style.display = 'flex';
+        }
+
+        function cApp(v) {
+            calcInput += v;
+            document.getElementById('calcScreen').innerText = calcInput;
+        }
+        function cClr() {
+            calcInput = '';
+            document.getElementById('calcScreen').innerText = '0';
+        }
+        function cEval() {
+            try {
+                let r = eval(calcInput);
+                document.getElementById('calcScreen').innerText = r;
+                calcInput = r.toString();
+            } catch(e) {
+                document.getElementById('calcScreen').innerText = 'خطأ';
+                calcInput = '';
+            }
+        }
+    </script>
+</body>
+</html>
