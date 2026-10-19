@@ -8,7 +8,7 @@
     <style>
         :root {
             --bg-color: #0b1329;
-            --card-bg: rgba(19, 28, 53, 0.85);
+            --card-bg: #131c35;
             --text-color: #f8fafc;
             --text-muted: #94a3b8;
             --primary: #38bdf8;
@@ -19,7 +19,7 @@
 
         [data-theme="light"] {
             --bg-color: #f1f5f9;
-            --card-bg: rgba(255, 255, 255, 0.9);
+            --card-bg: #ffffff;
             --text-color: #0f172a;
             --text-muted: #475569;
             --primary: #0284c7;
@@ -33,11 +33,10 @@
             margin: 0;
             padding: 0;
             font-family: 'Cairo', sans-serif;
-            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         body {
-            background: linear-gradient(rgba(11, 19, 41, 0.92), rgba(11, 19, 41, 0.95)), 
+            background: linear-gradient(rgba(11, 19, 41, 0.88), rgba(11, 19, 41, 0.92)), 
                         url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000&auto=format&fit=crop') no-repeat center center fixed;
             background-size: cover;
             color: var(--text-color);
@@ -45,24 +44,21 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 15px;
+            padding: 10px;
         }
 
-        /* Chrome Browser Window Frame */
         .browser-window {
             width: 100%;
-            max-width: 880px;
+            max-width: 850px;
             background: var(--card-bg);
-            backdrop-filter: blur(12px);
             border: 2px solid var(--border-color);
-            border-radius: 14px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
             overflow: hidden;
             display: flex;
             flex-direction: column;
         }
 
-        /* Browser Header Bar */
         .browser-header {
             background: var(--browser-bg);
             padding: 10px 15px;
@@ -89,140 +85,120 @@
         .browser-url-bar {
             background: var(--bg-color);
             color: var(--text-muted);
-            padding: 5px 20px;
-            border-radius: 20px;
-            font-size: 0.85rem;
+            padding: 4px 15px;
+            border-radius: 15px;
+            font-size: 0.8rem;
             font-family: 'Fira Code', monospace;
-            width: 55%;
+            width: 50%;
             text-align: center;
             border: 1px solid var(--border-color);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
         .browser-controls {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
 
         .control-btn {
-            background: none;
+            background: var(--bg-color);
             border: 1px solid var(--border-color);
             color: var(--text-color);
-            padding: 4px 10px;
-            border-radius: 8px;
+            padding: 5px 12px;
+            border-radius: 6px;
             cursor: pointer;
             font-size: 0.8rem;
             font-weight: bold;
         }
 
-        .control-btn:hover {
-            background: var(--primary);
-            color: #fff;
-        }
-
-        /* Browser Body Content */
         .browser-content {
-            padding: 25px;
-            max-height: 85vh;
+            padding: 20px;
+            max-height: 82vh;
             overflow-y: auto;
         }
 
         header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
-        /* Custom MS Logo */
         .ms-logo {
-            width: 90px;
-            height: 90px;
+            width: 85px;
+            height: 85px;
             background: linear-gradient(135deg, #2563eb, #38bdf8);
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 38px;
+            font-size: 34px;
             font-weight: 900;
             color: #ffffff;
-            margin: 0 auto 15px auto;
-            box-shadow: 0 0 25px var(--primary-glow);
+            margin: 0 auto 12px auto;
+            box-shadow: 0 0 20px var(--primary-glow);
             border: 3px solid rgba(255, 255, 255, 0.6);
-            font-family: 'Poppins', sans-serif;
-            letter-spacing: -2px;
+            letter-spacing: -1px;
         }
 
         .title-frame {
             display: inline-block;
-            padding: 10px 24px;
-            border-radius: 14px;
+            padding: 8px 20px;
+            border-radius: 12px;
             background: var(--card-bg);
             border: 2px solid var(--border-color);
-            box-shadow: 0 0 20px var(--primary-glow);
-            margin-bottom: 10px;
+            box-shadow: 0 0 15px var(--primary-glow);
+            margin-bottom: 8px;
         }
 
         h1 {
             color: var(--primary);
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 900;
         }
 
         p.subtitle {
             color: var(--text-muted);
-            font-size: 1.05rem;
-            font-weight: 600;
+            font-size: 1rem;
         }
 
-        /* Projects Grid */
         .section-title {
             color: var(--text-color);
-            font-size: 1.35rem;
-            margin-bottom: 20px;
+            font-size: 1.25rem;
+            margin-bottom: 15px;
             border-bottom: 2px dashed var(--border-color);
-            padding-bottom: 8px;
+            padding-bottom: 6px;
         }
 
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 18px;
+            gap: 15px;
         }
 
         .card {
-            background: var(--card-bg);
+            background: var(--bg-color);
             border: 2px solid var(--border-color);
-            border-radius: 14px;
-            padding: 20px;
+            border-radius: 12px;
+            padding: 18px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: 0 8px 25px var(--primary-glow);
         }
 
         .card-icon {
-            font-size: 30px;
-            margin-bottom: 10px;
+            font-size: 28px;
+            margin-bottom: 8px;
         }
 
         .card h3 {
             color: var(--primary);
-            font-size: 1.15rem;
-            margin-bottom: 8px;
+            font-size: 1.1rem;
+            margin-bottom: 6px;
         }
 
         .card p {
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             line-height: 1.5;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .btn-try {
@@ -230,173 +206,39 @@
             background: linear-gradient(135deg, #2563eb, #38bdf8);
             color: #ffffff;
             border: none;
-            padding: 9px 12px;
+            padding: 8px;
             border-radius: 8px;
             font-weight: 700;
             font-size: 0.9rem;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
         }
 
-        .btn-try:hover {
-            opacity: 0.9;
-        }
-
-        /* Modal Box */
+        /* Modal Overlay */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(5px);
+            background: rgba(0, 0, 0, 0.75);
             display: none;
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            padding: 20px;
+            padding: 15px;
         }
 
         .modal-box {
             background: var(--card-bg);
             border: 2px solid var(--primary);
-            border-radius: 16px;
-            max-width: 400px;
+            border-radius: 14px;
+            max-width: 380px;
             width: 100%;
-            padding: 22px;
+            padding: 20px;
             position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .close-btn {
             position: absolute;
             top: 10px;
-            left: 15px;
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 22px;
-            cursor: pointer;
-        }
-        [dir="ltr"] .close-btn { left: auto; right: 15px; }
-
-        .modal-box h3 {
-            color: var(--primary);
-            margin-bottom: 15px;
-        }
-
-        .tool-input-group {
-            margin-bottom: 12px;
-            text-align: right;
-        }
-        [dir="ltr"] .tool-input-group { text-align: left; }
-
-        .tool-input-group label {
-            display: block;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 4px;
-        }
-
-        .tool-input-group input {
-            width: 100%;
-            padding: 9px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            background: var(--bg-color);
-            color: var(--text-color);
-            font-size: 0.95rem;
-        }
-
-        .tool-result {
-            margin-top: 12px;
-            padding: 10px;
-            background: var(--bg-color);
-            border-radius: 8px;
-            border: 1px dashed var(--primary);
-            color: #10b981;
-            font-weight: 700;
-            text-align: center;
-            display: none;
-        }
-
-        /* Advanced Calculator Styling */
-        .calc-screen {
-            background: var(--bg-color);
-            color: var(--primary);
-            font-size: 1.5rem;
-            padding: 12px;
-            border-radius: 8px;
-            text-align: left;
-            margin-bottom: 12px;
-            border: 1px solid var(--border-color);
-            font-family: 'Fira Code', monospace;
-            min-height: 50px;
-            word-break: break-all;
-        }
-        .calc-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-        }
-        .calc-btn {
-            background: var(--bg-color);
-            color: var(--text-color);
-            border: 1px solid var(--border-color);
-            padding: 12px;
-            font-size: 1.1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .calc-btn:hover { background: var(--primary); color: #fff; }
-
-        footer {
-            margin-top: 25px;
-            padding-top: 15px;
-            border-top: 1px solid var(--border-color);
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="browser-window">
-        <!-- Browser Chrome Bar -->
-        <div class="browser-header">
-            <div class="browser-dots">
-                <div class="dot dot-red"></div>
-                <div class="dot dot-yellow"></div>
-                <div class="dot dot-green"></div>
-            </div>
-            <div class="browser-url-bar" id="url-text">https://mohammeds-lab.github.io</div>
-            <div class="browser-controls">
-                <button class="control-btn" id="themeToggleBtn" onclick="toggleTheme()">☀️ / 🌙</button>
-                <button class="control-btn" id="langToggleBtn" onclick="toggleLanguage()">EN</button>
-            </div>
-        </div>
-
-        <!-- Browser Main Body -->
-        <div class="browser-content">
-            <header>
-                <div class="ms-logo">MS</div>
-                <div class="title-frame">
-                    <h1 id="main-title">مرحبا بك في موقع محمد</h1>
-                </div>
-                <p class="subtitle" id="main-subtitle">مساحتي الخاصة لعرض مشاريعي البرمجية وتطويرها 🚀</p>
-            </header>
-
-            <main class="container">
-                <h2 class="section-title" id="section-heading">🛠️ معرض المشاريع</h2>
-                
-                <div class="projects-grid">
-                    <div class="card">
-                        <div>
-                            <div class="card-icon">🎨</div>
-                            <h3 id="p1-title">حاسبة تكلفة الطلاء</h3>
-                            <p id="p1-desc">أداة تساعد دهاني المنازل في حساب مساحة الغرفة والتكلفة الإجمالية بدقة.</p>
-                        </div>
-                        <button class="btn-try" id="p1-btn" onclick="openPaintTool
+            left: 15
