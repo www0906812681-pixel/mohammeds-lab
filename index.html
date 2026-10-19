@@ -1,191 +1,255 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" id="html-root">
+<html lang="ar" dir="rtl" id="html-root" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="page-title">مختبر محمد | Mohammed's Lab</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-color: #0b1329;
+            --card-bg: rgba(19, 28, 53, 0.85);
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #38bdf8;
+            --primary-glow: rgba(56, 189, 248, 0.4);
+            --border-color: rgba(56, 189, 248, 0.3);
+            --browser-bg: #1e293b;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f1f5f9;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --text-color: #0f172a;
+            --text-muted: #475569;
+            --primary: #0284c7;
+            --primary-glow: rgba(2, 132, 199, 0.2);
+            --border-color: rgba(2, 132, 199, 0.3);
+            --browser-bg: #e2e8f0;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Cairo', 'Poppins', sans-serif;
-            transition: all 0.3s ease;
+            font-family: 'Cairo', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         body {
-            background-color: #0b1329;
-            color: #f8fafc;
+            background: linear-gradient(rgba(11, 19, 41, 0.92), rgba(11, 19, 41, 0.95)), 
+                        url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000&auto=format&fit=crop') no-repeat center center fixed;
+            background-size: cover;
+            color: var(--text-color);
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 20px;
+            padding: 15px;
         }
 
-        /* Top Bar & Language Switcher */
-        .top-bar {
+        /* Chrome Browser Window Frame */
+        .browser-window {
             width: 100%;
-            max-width: 850px;
+            max-width: 880px;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 2px solid var(--border-color);
+            border-radius: 14px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            overflow: hidden;
             display: flex;
-            justify-content: flex-end;
-            margin-bottom: 15px;
+            flex-direction: column;
         }
 
-        .lang-btn {
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            color: #38bdf8;
-            border: 2px solid #38bdf8;
-            padding: 8px 18px;
+        /* Browser Header Bar */
+        .browser-header {
+            background: var(--browser-bg);
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .browser-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .dot-red { background: #ef4444; }
+        .dot-yellow { background: #f59e0b; }
+        .dot-green { background: #10b981; }
+
+        .browser-url-bar {
+            background: var(--bg-color);
+            color: var(--text-muted);
+            padding: 5px 20px;
             border-radius: 20px;
+            font-size: 0.85rem;
+            font-family: 'Fira Code', monospace;
+            width: 55%;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .browser-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .control-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 4px 10px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 0.95rem;
-            font-weight: 700;
-            box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
+            font-size: 0.8rem;
+            font-weight: bold;
         }
 
-        .lang-btn:hover {
-            background: #38bdf8;
-            color: #0f172a;
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.7);
+        .control-btn:hover {
+            background: var(--primary);
+            color: #fff;
         }
 
-        /* Header & Logo Section */
+        /* Browser Body Content */
+        .browser-content {
+            padding: 25px;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
         header {
             text-align: center;
-            margin-top: 10px;
-            margin-bottom: 35px;
+            margin-bottom: 30px;
         }
 
-        .logo-box {
-            width: 95px;
-            height: 95px;
-            background: radial-gradient(circle, #1e293b, #0f172a);
-            border: 3px solid #38bdf8;
+        /* Custom MS Logo */
+        .ms-logo {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #2563eb, #38bdf8);
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 42px;
-            margin: 0 auto 20px auto;
-            box-shadow: 0 0 25px rgba(56, 189, 248, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.2);
-            position: relative;
+            font-size: 38px;
+            font-weight: 900;
+            color: #ffffff;
+            margin: 0 auto 15px auto;
+            box-shadow: 0 0 25px var(--primary-glow);
+            border: 3px solid rgba(255, 255, 255, 0.6);
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: -2px;
         }
 
-        /* Custom Glowing Title Frame */
         .title-frame {
             display: inline-block;
-            padding: 12px 28px;
-            border-radius: 16px;
-            background: rgba(15, 23, 42, 0.7);
-            border: 2px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4), inset 0 0 10px rgba(56, 189, 248, 0.2);
-            margin-bottom: 12px;
+            padding: 10px 24px;
+            border-radius: 14px;
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            box-shadow: 0 0 20px var(--primary-glow);
+            margin-bottom: 10px;
         }
 
         h1 {
-            color: #38bdf8;
-            font-size: 2.2rem;
+            color: var(--primary);
+            font-size: 2rem;
             font-weight: 900;
-            letter-spacing: 0.5px;
-            text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
         }
 
         p.subtitle {
-            color: #94a3b8;
-            font-size: 1.15rem;
+            color: var(--text-muted);
+            font-size: 1.05rem;
             font-weight: 600;
         }
 
-        /* Projects Section */
-        .container {
-            width: 100%;
-            max-width: 850px;
-        }
-
+        /* Projects Grid */
         .section-title {
-            color: #e2e8f0;
-            font-size: 1.5rem;
-            margin-bottom: 25px;
-            border-bottom: 2px dashed #334155;
-            padding-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            color: var(--text-color);
+            font-size: 1.35rem;
+            margin-bottom: 20px;
+            border-bottom: 2px dashed var(--border-color);
+            padding-bottom: 8px;
         }
 
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 22px;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 18px;
         }
 
         .card {
-            background-color: #131c35;
-            border: 2px solid rgba(56, 189, 248, 0.3);
-            border-radius: 16px;
-            padding: 22px;
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 14px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
         .card:hover {
-            transform: translateY(-7px);
-            border-color: #38bdf8;
-            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.35);
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 8px 25px var(--primary-glow);
         }
 
         .card-icon {
-            font-size: 34px;
-            margin-bottom: 12px;
-        }
-
-        .card h3 {
-            color: #38bdf8;
-            font-size: 1.25rem;
+            font-size: 30px;
             margin-bottom: 10px;
         }
 
-        .card p {
-            color: #cbd5e1;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 20px;
+        .card h3 {
+            color: var(--primary);
+            font-size: 1.15rem;
+            margin-bottom: 8px;
         }
 
-        /* Action Buttons for Interactive Tools */
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
         .btn-try {
             width: 100%;
             background: linear-gradient(135deg, #2563eb, #38bdf8);
             color: #ffffff;
             border: none;
-            padding: 10px 15px;
-            border-radius: 10px;
+            padding: 9px 12px;
+            border-radius: 8px;
             font-weight: 700;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
-            text-align: center;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
         }
 
         .btn-try:hover {
-            background: linear-gradient(135deg, #1d4ed8, #0284c7);
-            box-shadow: 0 6px 18px rgba(56, 189, 248, 0.6);
+            opacity: 0.9;
         }
 
-        /* Modal / Tool Interface Styling */
+        /* Modal Box */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(11, 19, 41, 0.85);
+            background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(5px);
             display: none;
             justify-content: center;
@@ -195,33 +259,30 @@
         }
 
         .modal-box {
-            background: #1e293b;
-            border: 2px solid #38bdf8;
-            border-radius: 18px;
-            max-width: 450px;
+            background: var(--card-bg);
+            border: 2px solid var(--primary);
+            border-radius: 16px;
+            max-width: 400px;
             width: 100%;
-            padding: 25px;
-            box-shadow: 0 10px 35px rgba(56, 189, 248, 0.4);
+            padding: 22px;
             position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .close-btn {
             position: absolute;
-            top: 12px;
+            top: 10px;
             left: 15px;
             background: none;
             border: none;
-            color: #94a3b8;
-            font-size: 24px;
+            color: var(--text-muted);
+            font-size: 22px;
             cursor: pointer;
         }
-        [dir="ltr"] .close-btn {
-            left: auto;
-            right: 15px;
-        }
+        [dir="ltr"] .close-btn { left: auto; right: 15px; }
 
         .modal-box h3 {
-            color: #38bdf8;
+            color: var(--primary);
             margin-bottom: 15px;
         }
 
@@ -229,281 +290,113 @@
             margin-bottom: 12px;
             text-align: right;
         }
-        [dir="ltr"] .tool-input-group {
-            text-align: left;
-        }
+        [dir="ltr"] .tool-input-group { text-align: left; }
 
         .tool-input-group label {
             display: block;
-            font-size: 0.9rem;
-            color: #cbd5e1;
-            margin-bottom: 5px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
         }
 
         .tool-input-group input {
             width: 100%;
-            padding: 10px;
+            padding: 9px;
             border-radius: 8px;
-            border: 1px solid #334155;
-            background: #0f172a;
-            color: #fff;
-            font-size: 1rem;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-size: 0.95rem;
         }
 
         .tool-result {
-            margin-top: 15px;
-            padding: 12px;
-            background: #0f172a;
+            margin-top: 12px;
+            padding: 10px;
+            background: var(--bg-color);
             border-radius: 8px;
-            border: 1px dashed #38bdf8;
-            color: #4ade80;
+            border: 1px dashed var(--primary);
+            color: #10b981;
             font-weight: 700;
             text-align: center;
             display: none;
         }
 
-        /* Footer */
+        /* Advanced Calculator Styling */
+        .calc-screen {
+            background: var(--bg-color);
+            color: var(--primary);
+            font-size: 1.5rem;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: left;
+            margin-bottom: 12px;
+            border: 1px solid var(--border-color);
+            font-family: 'Fira Code', monospace;
+            min-height: 50px;
+            word-break: break-all;
+        }
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+        .calc-btn {
+            background: var(--bg-color);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .calc-btn:hover { background: var(--primary); color: #fff; }
+
         footer {
-            margin-top: auto;
-            padding: 35px 0 15px 0;
-            color: #64748b;
-            font-size: 0.9rem;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.85rem;
             text-align: center;
         }
     </style>
 </head>
 <body>
 
-    <!-- Language Toggle Button -->
-    <div class="top-bar">
-        <button class="lang-btn" id="langToggleBtn" onclick="toggleLanguage()">English</button>
-    </div>
-
-    <header>
-        <!-- Laptop & Python Code Logo -->
-        <div class="logo-box">
-            💻🐍
-        </div>
-        
-        <!-- Glowing Frame for Main Title -->
-        <div class="title-frame">
-            <h1 id="main-title">مرحبا بك في موقع محمد</h1>
-        </div>
-        <p class="subtitle" id="main-subtitle">مساحتي الخاصة لعرض مشاريعي البرمجية وتطويرها 🚀</p>
-    </header>
-
-    <main class="container">
-        <h2 class="section-title" id="section-heading">🛠️ معرض المشاريع</h2>
-        
-        <div class="projects-grid">
-            <!-- Project 1: Paint Cost Calculator -->
-            <div class="card">
-                <div>
-                    <div class="card-icon">🎨</div>
-                    <h3 id="p1-title">حاسبة تكلفة الطلاء</h3>
-                    <p id="p1-desc">أداة تساعد دهاني المنازل في حساب مساحة الغرفة (الطول × العرض) وحساب التكلفة الإجمالية بناءً على سعر المتر المتفق عليه.</p>
-                </div>
-                <button class="btn-try" id="p1-btn" onclick="openPaintTool()">جرب الأداة 🚀</button>
+    <div class="browser-window">
+        <!-- Browser Chrome Bar -->
+        <div class="browser-header">
+            <div class="browser-dots">
+                <div class="dot dot-red"></div>
+                <div class="dot dot-yellow"></div>
+                <div class="dot dot-green"></div>
             </div>
-
-            <!-- Project 2: YouTube Generator -->
-            <div class="card">
-                <div>
-                    <div class="card-icon">🎬</div>
-                    <h3 id="p2-title">صانع أسماء قنوات يوتيوب</h3>
-                    <p id="p2-desc">أداة بسيطة تولد أفكار وأسماء مبتكرة لقنوات اليوتيوب بناءً على مجال القناة ومحتواها.</p>
-                </div>
-                <button class="btn-try" id="p2-btn" onclick="openYTTool()">جرب الأداة 🚀</button>
-            </div>
-
-            <!-- Project 3: Standard Calculator -->
-            <div class="card">
-                <div>
-                    <div class="card-icon">🔢</div>
-                    <h3 id="p3-title">الآلة الحاسبة</h3>
-                    <p id="p3-desc">مشروع حاسبة تفاعلية للقيام بالعمليات الحسابية الأساسية بسرعة وسهولة.</p>
-                </div>
-                <button class="btn-try" id="p3-btn" onclick="openCalcTool()">جرب الأداة 🚀</button>
+            <div class="browser-url-bar" id="url-text">https://mohammeds-lab.github.io</div>
+            <div class="browser-controls">
+                <button class="control-btn" id="themeToggleBtn" onclick="toggleTheme()">☀️ / 🌙</button>
+                <button class="control-btn" id="langToggleBtn" onclick="toggleLanguage()">EN</button>
             </div>
         </div>
-    </main>
 
-    <!-- Modal Tool Container -->
-    <div class="modal-overlay" id="modalTool">
-        <div class="modal-box">
-            <button class="close-btn" onclick="closeModal()">×</button>
-            <div id="modalContent"></div>
-        </div>
-    </div>
-
-    <footer>
-        <p id="footer-text">تم التطوير بواسطة محمد © 2026</p>
-    </footer>
-
-    <script>
-        let currentLang = 'ar';
-        const translations = {
-            ar: {
-                title: "مختبر محمد | Mohammed's Lab",
-                btnText: "English",
-                mainTitle: "مرحبا بك في موقع محمد",
-                mainSubtitle: "مساحتي الخاصة لعرض مشاريعي البرمجية وتطويرها 🚀",
-                sectionHeading: "🛠️ معرض المشاريع",
-                p1Title: "حاسبة تكلفة الطلاء",
-                p1Desc: "أداة تساعد دهاني المنازل في حساب مساحة الغرفة (الطول × العرض) وحساب التكلفة الإجمالية بناءً على سعر المتر المتفق عليه.",
-                p2Title: "صانع أسماء قنوات يوتيوب",
-                p2Desc: "أداة بسيطة تولد أفكار وأسماء مبتكرة لقنوات اليوتيوب بناءً على مجال القناة ومحتواها.",
-                p3Title: "الآلة الحاسبة",
-                p3Desc: "مشروع حاسبة تفاعلية للقيام بالعمليات الحسابية الأساسية بسرعة وسهولة.",
-                tryBtn: "جرب الأداة 🚀",
-                footerText: "تم التطوير بواسطة محمد © 2026"
-            },
-            en: {
-                title: "Mohammed's Lab",
-                btnText: "العربية",
-                mainTitle: "Welcome to Mohammed's Lab",
-                mainSubtitle: "My personal space to showcase and develop my programming projects 🚀",
-                sectionHeading: "🛠️ Projects Portfolio",
-                p1Title: "Wall Paint Cost Calculator",
-                p1Desc: "A tool that helps house painters calculate room dimensions (Length × Width) and total cost based on the agreed price per meter.",
-                p2Title: "YouTube Channel Name Generator",
-                p2Desc: "A simple tool that generates creative ideas and names for YouTube channels based on content and niche.",
-                p3Title: "Standard Calculator",
-                p3Desc: "An interactive calculator project for performing basic arithmetic operations quickly and easily.",
-                tryBtn: "Try Tool 🚀",
-                footerText: "Developed by Mohammed © 2026"
-            }
-        };
-
-        function toggleLanguage() {
-            const root = document.getElementById('html-root');
-            if (currentLang === 'ar') {
-                currentLang = 'en';
-                root.setAttribute('lang', 'en');
-                root.setAttribute('dir', 'ltr');
-            } else {
-                currentLang = 'ar';
-                root.setAttribute('lang', 'ar');
-                root.setAttribute('dir', 'rtl');
-            }
-            const t = translations[currentLang];
-            document.getElementById('page-title').innerText = t.title;
-            document.getElementById('langToggleBtn').innerText = t.btnText;
-            document.getElementById('main-title').innerText = t.mainTitle;
-            document.getElementById('main-subtitle').innerText = t.mainSubtitle;
-            document.getElementById('section-heading').innerText = t.sectionHeading;
-            document.getElementById('p1-title').innerText = t.p1Title;
-            document.getElementById('p1-desc').innerText = t.p1Desc;
-            document.getElementById('p2-title').innerText = t.p2Title;
-            document.getElementById('p2-desc').innerText = t.p2Desc;
-            document.getElementById('p3-title').innerText = t.p3Title;
-            document.getElementById('p3-desc').innerText = t.p3Desc;
-            document.getElementById('p1-btn').innerText = t.tryBtn;
-            document.getElementById('p2-btn').innerText = t.tryBtn;
-            document.getElementById('p3-btn').innerText = t.tryBtn;
-            document.getElementById('footer-text').innerText = t.footerText;
-        }
-
-        // Modal Functions for Tools
-        function closeModal() {
-            document.getElementById('modalTool').style.display = 'none';
-        }
-
-        function openPaintTool() {
-            const content = `
-                <h3>🎨 حاسبة تكلفة الطلاء</h3>
-                <div class="tool-input-group">
-                    <label>طول الغرفة (بالمتر):</label>
-                    <input type="number" id="length" placeholder="مثال: 5">
+        <!-- Browser Main Body -->
+        <div class="browser-content">
+            <header>
+                <div class="ms-logo">MS</div>
+                <div class="title-frame">
+                    <h1 id="main-title">مرحبا بك في موقع محمد</h1>
                 </div>
-                <div class="tool-input-group">
-                    <label>عرض الغرفة (بالمتر):</label>
-                    <input type="number" id="width" placeholder="مثال: 4">
-                </div>
-                <div class="tool-input-group">
-                    <label>سعر المتر المتفق عليه:</label>
-                    <input type="number" id="price" placeholder="مثال: 10">
-                </div>
-                <button class="btn-try" onclick="calculatePaintCost()">احسب التكلفة الإجمالية</button>
-                <div class="tool-result" id="paintResult"></div>
-            `;
-            document.getElementById('modalContent').innerHTML = content;
-            document.getElementById('modalTool').style.display = 'flex';
-        }
+                <p class="subtitle" id="main-subtitle">مساحتي الخاصة لعرض مشاريعي البرمجية وتطويرها 🚀</p>
+            </header>
 
-        function calculatePaintCost() {
-            const l = parseFloat(document.getElementById('length').value) || 0;
-            const w = parseFloat(document.getElementById('width').value) || 0;
-            const p = parseFloat(document.getElementById('price').value) || 0;
-            const area = l * w;
-            const total = area * p;
-            
-            const res = document.getElementById('paintResult');
-            res.style.display = 'block';
-            res.innerHTML = `المساحة: ${area} متر مربع <br> التكلفة الإجمالية: ${total} $`;
-        }
-
-        function openYTTool() {
-            const content = `
-                <h3>🎬 صانع أسماء قنوات يوتيوب</h3>
-                <p style="color:#cbd5e1; margin-bottom:15px;">ادخل مجال قناتك للحصول على اقتراحات جديدة:</p>
-                <div class="tool-input-group">
-                    <input type="text" id="niche" placeholder="مثال: جيمنج، تقنية، طبخ...">
-                </div>
-                <button class="btn-try" onclick="generateYTNames()">توليد الأسماء</button>
-                <div class="tool-result" id="ytResult"></div>
-            `;
-            document.getElementById('modalContent').innerHTML = content;
-            document.getElementById('modalTool').style.display = 'flex';
-        }
-
-        function generateYTNames() {
-            const niche = document.getElementById('niche').value || 'عام';
-            const names = [
-                `عالم الـ ${niche} 🚀`,
-                `مختبر ${niche} الاحترافي`,
-                `كواليس الـ ${niche}`,
-                `${niche} بالعربي`
-            ];
-            const res = document.getElementById('ytResult');
-            res.style.display = 'block';
-            res.innerHTML = names.join('<br>');
-        }
-
-        function openCalcTool() {
-            const content = `
-                <h3>🔢 الآلة الحاسبة السريعة</h3>
-                <div class="tool-input-group">
-                    <input type="number" id="num1" placeholder="الرقم الأول">
-                </div>
-                <div class="tool-input-group">
-                    <input type="number" id="num2" placeholder="الرقم الثاني">
-                </div>
-                <div style="display:flex; gap:10px; margin-bottom:15px;">
-                    <button class="btn-try" onclick="calcOp('+')">+</button>
-                    <button class="btn-try" onclick="calcOp('-')">-</button>
-                    <button class="btn-try" onclick="calcOp('*')">×</button>
-                    <button class="btn-try" onclick="calcOp('/')">÷</button>
-                </div>
-                <div class="tool-result" id="calcResult"></div>
-            `;
-            document.getElementById('modalContent').innerHTML = content;
-            document.getElementById('modalTool').style.display = 'flex';
-        }
-
-        function calcOp(op) {
-            const n1 = parseFloat(document.getElementById('num1').value) || 0;
-            const n2 = parseFloat(document.getElementById('num2').value) || 0;
-            let ans = 0;
-            if(op === '+') ans = n1 + n2;
-            if(op === '-') ans = n1 - n2;
-            if(op === '*') ans = n1 * n2;
-            if(op === '/') ans = n2 !== 0 ? (n1 / n2).toFixed(2) : 'خطأ في القسمة على صفر';
-            
-            const res = document.getElementById('calcResult');
-            res.style.display = 'block';
-            res.innerHTML = `النتيجة: ${ans}`;
-        }
-    </script>
-</body>
-</html>
+            <main class="container">
+                <h2 class="section-title" id="section-heading">🛠️ معرض المشاريع</h2>
+                
+                <div class="projects-grid">
+                    <div class="card">
+                        <div>
+                            <div class="card-icon">🎨</div>
+                            <h3 id="p1-title">حاسبة تكلفة الطلاء</h3>
+                            <p id="p1-desc">أداة تساعد دهاني المنازل في حساب مساحة الغرفة والتكلفة الإجمالية بدقة.</p>
+                        </div>
+                        <button class="btn-try" id="p1-btn" onclick="openPaintTool
