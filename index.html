@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" data-theme="dark">
 <head>
@@ -223,7 +222,6 @@
       color: var(--text);
     }
 
-    /* لابتوب مرسوم بالكود */
     .laptop-scene {
       position: relative;
       padding: 18px 8px 0;
@@ -648,7 +646,7 @@
       </div>
 
       <div class="project-grid">
-        <!-- مشروع 1: غيّر الاسم والوصف والرابط حسب مشروعك -->
+        <!-- مشروع 1 -->
         <article class="project">
           <div class="project-top">
             <div class="project-icon"><i data-lucide="calculator"></i></div>
@@ -661,7 +659,8 @@
             <span class="tag">Beginner</span>
           </div>
           <div class="project-links">
-            <a class="btn btn-primary" href="projects/calculator/"
+            <!-- تم تعديل الرابط هنا ليكون مطلقاً وصحيحاً على GitHub Pages -->
+            <a class="btn btn-primary" href="https://www0906812681-pixel.github.io/calculator/"
               target="_blank" rel="noopener">
               <i data-lucide="external-link"></i> عرض المشروع
             </a>
@@ -686,8 +685,9 @@
             <span class="tag">Inputs</span>
           </div>
           <div class="project-links">
-            <a class="btn btn-primary"
-              href="projects/age-calculator/">
+            <!-- تم تعديل الرابط هنا ليكون مطلقاً وصحيحاً على GitHub Pages -->
+            <a class="btn btn-primary" href="https://www0906812681-pixel.github.io/age-calculator/"
+              target="_blank" rel="noopener">
               <i data-lucide="external-link"></i> عرض المشروع
             </a>
             <a class="btn btn-secondary icon-link"
@@ -822,7 +822,6 @@
 
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // يتبع إعدادات الجهاز ما لم يختر المستخدم مظهراً بنفسه.
     try {
       if (!localStorage.getItem("ms-theme")) {
         const media = matchMedia("(prefers-color-scheme: light)");
