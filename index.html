@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#080b16">
-  <meta name="description" content="معرض مشاريع MS البرمجية">
-  <title>MS | معرض مشاريعي</title>
+  <meta name="description" content="معرض مشاريع محمد يوسف البرمجية">
+  <title>Mohammed Youssef | معرض مشاريعي</title>
 
   <script>
     (() => {
       try {
-        const saved = localStorage.getItem("ms-theme");
+        const saved = localStorage.getItem("my-theme");
         const theme = saved ||
           (matchMedia("(prefers-color-scheme: light)").matches
             ? "light" : "dark");
@@ -169,7 +169,7 @@
 
     h1 {
       margin: 22px 0 12px;
-      font-size: clamp(36px,5.5vw,62px);
+      font-size: clamp(32px,4.8vw,56px);
       line-height: 1.35;
       letter-spacing: -2px;
     }
@@ -222,6 +222,7 @@
       color: var(--text);
     }
 
+    /* لابتوب مرسوم بالكود */
     .laptop-scene {
       position: relative;
       padding: 18px 8px 0;
@@ -269,7 +270,7 @@
     .screen-brand {
       color: #a89bff;
       font-weight: 900;
-      font-size: 18px;
+      font-size: 16px;
     }
 
     .code-lines {
@@ -289,7 +290,7 @@
       text-align: center;
       margin-top: 12px;
       color: #d7c8ff;
-      font-size: clamp(48px,7vw,78px);
+      font-size: clamp(36px,5vw,54px);
       font-weight: 900;
       line-height: 1.4;
       text-shadow: 0 0 25px #8b5cf6;
@@ -465,7 +466,7 @@
       place-items: center;
       border-radius: 22px;
       color: white;
-      font-size: 24px;
+      font-size: 20px;
       font-weight: 900;
       background: linear-gradient(135deg,#38bdf8,#8b5cf6,#d16bea);
     }
@@ -504,7 +505,7 @@
 
     @media (max-width: 600px) {
       .nav { min-height: 67px; }
-      .brand { font-size: 22px; }
+      .brand { font-size: 20px; }
       .navlinks {
         display: none;
         position: absolute;
@@ -548,9 +549,9 @@
 <body>
   <header class="topbar">
     <div class="container nav">
-      <a class="brand" href="#home" aria-label="MS الرئيسية">
-        <span class="brand-mark"><span>MS</span></span>
-        <span>MS<span class="gradient-text">.DEV</span></span>
+      <a class="brand" href="#home" aria-label="محمد يوسف الرئيسية">
+        <span class="brand-mark"><span>MY</span></span>
+        <span>Mohammed<span class="gradient-text">.DEV</span></span>
       </a>
 
       <nav class="navlinks" id="navlinks">
@@ -578,7 +579,7 @@
     <section class="container hero" id="home">
       <div class="hero-copy">
         <span class="eyebrow"><span class="dot"></span> أتعلم، أبني، وأتطور</span>
-        <h1>مرحباً، أنا<br><span class="gradient-text">MS</span></h1>
+        <h1>مرحباً، أنا<br><span class="gradient-text">Mohammed Youssef</span></h1>
         <h2 style="font-size:clamp(19px,3vw,25px);margin:0">
           مبرمج طموح وصانع مشاريع
         </h2>
@@ -598,7 +599,7 @@
 
         <div class="stats">
           <div class="stat">
-            <strong class="gradient-text">MS</strong>
+            <strong class="gradient-text">MY</strong>
             <span>رحلة برمجية مستمرة</span>
           </div>
           <div class="stat">
@@ -612,24 +613,24 @@
         </div>
       </div>
 
-      <div class="laptop-scene" aria-label="رسم لابتوب يحمل شعار MS ورمز البرمجة">
+      <div class="laptop-scene" aria-label="رسم لابتوب يحمل شعار محمد يوسف ورمز البرمجة">
         <div class="glow"></div>
         <div class="screen">
           <div class="screen-inner">
             <div class="screen-bar">
-              <span class="screen-brand">MS.DEV</span>
-              <span>my-portfolio / code</span>
+              <span class="screen-brand">MY.DEV</span>
+              <span>portfolio / code</span>
               <span>● ● ●</span>
             </div>
             <div class="code-lines">
-              <span>01 &nbsp; const developer = "MS";</span>
+              <span>01 &nbsp; const developer = "Mohammed Youssef";</span>
               <span>02 &nbsp; function buildIdeas() {</span>
               <span>03 &nbsp; &nbsp; learn();</span>
               <span>04 &nbsp; &nbsp; create();</span>
               <span>05 &nbsp; &nbsp; keepGrowing();</span>
               <span>06 &nbsp; }</span>
             </div>
-            <div class="big-code">&lt; MS /&gt;</div>
+            <div class="big-code">&lt; MY /&gt;</div>
           </div>
         </div>
         <div class="laptop-base"></div>
@@ -646,7 +647,7 @@
       </div>
 
       <div class="project-grid">
-        <!-- مشروع 1 -->
+        <!-- مشروع 1: حاسبة ذكية -->
         <article class="project">
           <div class="project-top">
             <div class="project-icon"><i data-lucide="calculator"></i></div>
@@ -659,7 +660,6 @@
             <span class="tag">Beginner</span>
           </div>
           <div class="project-links">
-            <!-- تم تعديل الرابط هنا ليكون مطلقاً وصحيحاً على GitHub Pages -->
             <a class="btn btn-primary" href="https://www0906812681-pixel.github.io/calculator/"
               target="_blank" rel="noopener">
               <i data-lucide="external-link"></i> عرض المشروع
@@ -672,7 +672,7 @@
           </div>
         </article>
 
-        <!-- مشروع 2 -->
+        <!-- مشروع 2: حاسبة سنة الميلاد -->
         <article class="project">
           <div class="project-top">
             <div class="project-icon"><i data-lucide="calendar-days"></i></div>
@@ -685,7 +685,6 @@
             <span class="tag">Inputs</span>
           </div>
           <div class="project-links">
-            <!-- تم تعديل الرابط هنا ليكون مطلقاً وصحيحاً على GitHub Pages -->
             <a class="btn btn-primary" href="https://www0906812681-pixel.github.io/age-calculator/"
               target="_blank" rel="noopener">
               <i data-lucide="external-link"></i> عرض المشروع
@@ -698,7 +697,7 @@
           </div>
         </article>
 
-        <!-- مشروع 3 -->
+        <!-- مشروع 3: مولد أسماء القنوات -->
         <article class="project">
           <div class="project-top">
             <div class="project-icon"><i data-lucide="terminal"></i></div>
@@ -751,7 +750,7 @@
       </div>
 
       <div class="about-box">
-        <div class="about-logo">MS</div>
+        <div class="about-logo">MY</div>
         <div>
           <h3>أتعلم البرمجة من الصفر</h3>
           <p>
@@ -778,7 +777,7 @@
 
   <footer>
     <div class="container footer-inner">
-      <span>© <span id="year"></span> MS.DEV — صُنع بالشغف والكود.</span>
+      <span>© <span id="year"></span> Mohammed Youssef — صُنع بالشغف والكود.</span>
       <a href="#home">العودة للأعلى ↑</a>
     </div>
   </footer>
@@ -792,7 +791,7 @@
     function saveTheme(theme) {
       root.dataset.theme = theme;
       try {
-        localStorage.setItem("ms-theme", theme);
+        localStorage.setItem("my-theme", theme);
       } catch (e) {}
       document.querySelector('meta[name="theme-color"]')
         .setAttribute("content", theme === "dark" ? "#080b16" : "#f5f7fc");
@@ -823,10 +822,10 @@
     document.getElementById("year").textContent = new Date().getFullYear();
 
     try {
-      if (!localStorage.getItem("ms-theme")) {
+      if (!localStorage.getItem("my-theme")) {
         const media = matchMedia("(prefers-color-scheme: light)");
         media.addEventListener("change", event => {
-          if (!localStorage.getItem("ms-theme")) {
+          if (!localStorage.getItem("my-theme")) {
             root.dataset.theme = event.matches ? "light" : "dark";
           }
         });
