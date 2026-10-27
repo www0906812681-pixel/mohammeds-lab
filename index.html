@@ -52,7 +52,6 @@
     }
 
     * { box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -222,7 +221,6 @@
       color: var(--text);
     }
 
-    /* لابتوب مرسوم بالكود */
     .laptop-scene {
       position: relative;
       padding: 18px 8px 0;
@@ -252,8 +250,7 @@
       min-height: 265px;
       border-radius: 8px;
       padding: 20px;
-      background:
-        radial-gradient(ellipse at 50% 40%, #17295a 0%, #0b1225 50%, #080c18 100%);
+      background: radial-gradient(ellipse at 50% 40%, #17295a 0%, #0b1225 50%, #080c18 100%);
       overflow: hidden;
     }
 
@@ -334,16 +331,8 @@
       margin-bottom: 28px;
     }
 
-    .section-head h2 {
-      margin: 0;
-      font-size: clamp(26px,4vw,36px);
-    }
-
-    .section-head p {
-      margin: 5px 0 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
+    .section-head h2 { margin: 0; font-size: clamp(26px,4vw,36px); }
+    .section-head p { margin: 5px 0 0; color: var(--muted); font-size: 14px; }
 
     .project-grid {
       display: grid;
@@ -387,12 +376,7 @@
     }
 
     .project-icon i { width: 26px; height: 26px; }
-
-    .project-number {
-      color: var(--muted);
-      font: 12px monospace;
-    }
-
+    .project-number { color: var(--muted); font: 12px monospace; }
     .project h3 { margin: 18px 0 5px; font-size: 20px; }
 
     .project p {
@@ -563,12 +547,10 @@
       </nav>
 
       <div style="display:flex;gap:8px">
-        <button class="theme-btn" id="themeBtn"
-          aria-label="تغيير المظهر" title="تغيير الوضع">
+        <button class="theme-btn" id="themeBtn" aria-label="تغيير المظهر" title="تغيير الوضع">
           <i data-lucide="sun-moon"></i>
         </button>
-        <button class="menu-btn" id="menuBtn"
-          aria-label="فتح القائمة" aria-expanded="false">
+        <button class="menu-btn" id="menuBtn" aria-label="فتح القائمة" aria-expanded="false">
           <i data-lucide="menu"></i>
         </button>
       </div>
@@ -660,15 +642,9 @@
             <span class="tag">Beginner</span>
           </div>
           <div class="project-links">
-            <a class="btn btn-primary" href="https://www0906812681-pixel.github.io/calculator/"
-              target="_blank" rel="noopener">
-              <i data-lucide="external-link"></i> عرض المشروع
-            </a>
-            <a class="btn btn-secondary icon-link"
-              href="https://github.com/" target="_blank" rel="noopener"
-              aria-label="كود المشروع">
-              <i data-lucide="github"></i>
-            </a>
+            <button class="btn btn-primary" onclick="alert('هذا المشروع عبارة عن سكريبت بايثون محلي قريباً سيتم ربطه بواجهة ويب!')" style="width:100%; border:none; cursor:pointer;">
+              <i data-lucide="external-link"></i> تفاصيل المشروع
+            </button>
           </div>
         </article>
 
@@ -685,15 +661,9 @@
             <span class="tag">Inputs</span>
           </div>
           <div class="project-links">
-            <a class="btn btn-primary" href="https://www0906812681-pixel.github.io/age-calculator/"
-              target="_blank" rel="noopener">
-              <i data-lucide="external-link"></i> عرض المشروع
-            </a>
-            <a class="btn btn-secondary icon-link"
-              href="https://github.com/" target="_blank" rel="noopener"
-              aria-label="كود المشروع">
-              <i data-lucide="github"></i>
-            </a>
+            <button class="btn btn-primary" onclick="alert('هذا البرنامج مكتوب بلغة بايثون ويتم تشغيله عبر بيئة العمل!')" style="width:100%; border:none; cursor:pointer;">
+              <i data-lucide="external-link"></i> تفاصيل المشروع
+            </button>
           </div>
         </article>
 
@@ -710,14 +680,9 @@
             <span class="tag">Strings</span>
           </div>
           <div class="project-links">
-            <a class="btn btn-primary" href="#contact">
+            <button class="btn btn-primary" onclick="alert('قريباً سيتم إطلاق الأداة بشكل كامل!')" style="width:100%; border:none; cursor:pointer;">
               <i data-lucide="external-link"></i> قريباً
-            </a>
-            <a class="btn btn-secondary icon-link"
-              href="https://github.com/" target="_blank" rel="noopener"
-              aria-label="كود المشروع">
-              <i data-lucide="github"></i>
-            </a>
+            </button>
           </div>
         </article>
       </div>
@@ -768,8 +733,7 @@
           <p>يمكنك زيارة حسابي على GitHub لمتابعة مشاريعي.</p>
         </div>
       </div>
-      <a class="btn btn-primary" href="https://github.com/"
-        target="_blank" rel="noopener">
+      <a class="btn btn-primary" href="https://github.com/" target="_blank" rel="noopener">
         <i data-lucide="github"></i> حساب GitHub
       </a>
     </section>
