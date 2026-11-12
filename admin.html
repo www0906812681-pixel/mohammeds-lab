@@ -51,8 +51,9 @@
     </div>
 
     <script>
-        const correctHash = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"; // كلمة السر admin
-        const REPO_NAME = "www0906/www090612681-pixel";
+        const correctHash = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"; 
+        const REPO_OWNER = "www0906";
+        const REPO_NAME = "www090612681-pixel";
 
         let userToken = localStorage.getItem('gh_admin_token') || "";
         let currentConfig = { game_status: true, calculator_status: true };
@@ -65,7 +66,6 @@
             return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
         }
 
-        // التثبت التلقائي لو الرمز محفوظ في المتصفح سابقاً
         window.onload = function() {
             if (userToken) {
                 document.getElementById('github-token').value = userToken;
@@ -77,14 +77,14 @@
             const tokenInput = document.getElementById('github-token').value.trim();
 
             if (!tokenInput.startsWith('ghp_')) {
-                document.getElementById('error-msg').innerText = "الرجاء إدخال رمز GitHub صحفي يبدأ بـ ghp_";
+                document.getElementById('error-msg').innerText = "الرجاء إدخال رمز GitHub صحيح يبدأ بـ ghp_";
                 return;
             }
 
             const hash = await sha256(pass);
             if (hash === correctHash) {
                 userToken = tokenInput;
-                localStorage.setItem('gh_admin_token', userToken); // حفظ آمن في متصفح تلفونك فقط
+                localStorage.setItem('gh_admin_token', userToken);
                 
                 document.getElementById('login-screen').classList.add('hidden');
                 document.getElementById('admin-panel').classList.remove('hidden');
@@ -96,7 +96,7 @@
 
         async function loadConfigStatus() {
             try {
-                let res = await fetch(`https://api.github.com/repos/${REPO_NAME}/contents/config.json`, {
+                let res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/config.json`, {
                     headers: { 'Authorization': `token ${userToken}` }
                 });
                 
@@ -131,7 +131,7 @@
                 let jsonString = JSON.stringify(currentConfig, null, 2);
                 let encodedContent = btoa(unescape(encodeURIComponent(jsonString)));
 
-                let response = await fetch(`https://api.github.com/repos/${REPO_NAME}/contents/config.json`, {
+                let response = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/config.json`, {
                     method: 'PUT',
                     headers: {
                         'Authorization': `token ${userToken}`,
