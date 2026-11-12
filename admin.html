@@ -21,10 +21,9 @@
     <!-- شاشة تسجيل الدخول -->
     <div id="login-screen" class="card">
         <h2>🔒 دخول المشرف</h2>
-        <p style="font-size: 13px; color: #94a3b8;">أدخل كلمة المرور ورمز GitHub الخاص بك</p>
+        <p style="font-size: 13px; color: #94a3b8;">أدخل كلمة المرور فقط للتحكم</p>
         
         <input type="password" id="password" placeholder="كلمة المرور (admin)">
-        <input type="password" id="github-token" placeholder="رمز الوصول (ghp_...)">
         
         <button onclick="checkLogin()">دخول للوحة التحكم</button>
         <p id="error-msg" style="color: #ef4444; margin-top: 10px; font-size: 13px;"></p>
@@ -52,10 +51,9 @@
 
     <script>
         const correctHash = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"; 
-        const REPO_OWNER = "www0906";
-        const REPO_NAME = "www090612681-pixel";
+        const WORKER_URL = "https://mohammeds-lab-worker.mohammeds-lab.workers.dev";
 
-        let userToken = localStorage.getItem('gh_admin_token') || "";
+        let isLoggedIn = sessionStorage.getItem('is_admin_logged') === "true";
         let currentConfig = { game_status: true, calculator_status: true };
         let fileSha = "";
 
@@ -67,24 +65,20 @@
         }
 
         window.onload = function() {
-            if (userToken) {
-                document.getElementById('github-token').value = userToken;
+            if (isLoggedIn) {
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('admin-panel').classList.remove('hidden');
+                loadConfigStatus();
             }
         };
 
         async function checkLogin() {
             const pass = document.getElementById('password').value;
-            const tokenInput = document.getElementById('github-token').value.trim();
-
-            if (!tokenInput.startsWith('ghp_')) {
-                document.getElementById('error-msg').innerText = "الرجاء إدخال رمز GitHub صحيح يبدأ بـ ghp_";
-                return;
-            }
-
             const hash = await sha256(pass);
+            
             if (hash === correctHash) {
-                userToken = tokenInput;
-                localStorage.setItem('gh_admin_token', userToken);
+                isLoggedIn = true;
+                sessionStorage.setItem('is_admin_logged', "true");
                 
                 document.getElementById('login-screen').classList.add('hidden');
                 document.getElementById('admin-panel').classList.remove('hidden');
@@ -96,11 +90,8 @@
 
         async function loadConfigStatus() {
             try {
-                let res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/config.json`, {
-                    headers: { 'Authorization': `token ${userToken}` }
-                });
-                
-                if (!res.ok) throw new Error("Token Error");
+                let res = await fetch(WORKER_URL);
+                if (!res.ok) throw new Error("Worker Error");
                 
                 let data = await res.json();
                 fileSha = data.sha;
@@ -108,8 +99,7 @@
                 currentConfig = decodedContent;
                 updateUI();
             } catch (e) {
-                alert("فشل الاتصال بجيت هاب! تأكد من صحة الرمز السري.");
-                logout();
+                alert("فشل الاتصال بالسيرفر الوسيط! تأكد من إعدادات Cloudflare.");
             }
         }
 
@@ -131,14 +121,12 @@
                 let jsonString = JSON.stringify(currentConfig, null, 2);
                 let encodedContent = btoa(unescape(encodeURIComponent(jsonString)));
 
-                let response = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/config.json`, {
+                let response = await fetch(WORKER_URL, {
                     method: 'PUT',
                     headers: {
-                        'Authorization': `token ${userToken}`,
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        message: "Update config via Admin Dashboard",
                         content: encodedContent,
                         sha: fileSha
                     })
@@ -149,15 +137,15 @@
                     fileSha = result.content.sha;
                     alert("تم حفظ التعديل بنجاح في الموقع! 🚀");
                 } else {
-                    alert("فشل الحفظ! تأكد من صلاحيات الرمز.");
+                    alert("فشل الحفظ عبر السيرفر!");
                 }
             } catch (err) {
-                alert("حدث خطأ أثناء حفظ التعديلات!");
+                alert("حدث خطأ أثناء الاتصال بالسيرفر!");
             }
         }
 
         function logout() {
-            localStorage.removeItem('gh_admin_token');
+            sessionStorage.removeItem('is_admin_logged');
             location.reload();
         }
     </script>
