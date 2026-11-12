@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة التحكم الفخمة - مختبر محمد</title>
+    <title>لوحة التحكم الاحترافية - مختبر محمد</title>
     <style>
         :root {
-            --bg-main: #0b0f19;
-            --bg-card: #111827;
+            --bg-main: #090d16;
+            --bg-sidebar: #0e1626;
+            --bg-card: #131c31;
             --border-color: #1e293b;
             --accent-blue: #3b82f6;
             --accent-blue-hover: #2563eb;
@@ -22,44 +23,59 @@
             background: var(--bg-main);
             color: var(--text-main);
             margin: 0;
-            padding: 20px;
+            padding: 15px;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
         }
 
-        .dashboard-container {
+        .admin-layout {
+            display: flex;
+            flex-direction: column;
             width: 100%;
-            max-width: 480px;
+            max-width: 520px;
+            background: var(--bg-sidebar);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+            overflow: hidden;
+        }
+
+        /* رأس اللوحة الفخم */
+        .top-bar {
+            background: var(--bg-card);
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-bar h2 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .top-bar span {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .content-body {
+            padding: 20px;
         }
 
         .card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            padding: 25px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
-            margin-bottom: 20px;
-        }
-
-        .header-title {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 8px;
-        }
-
-        .header-title h2 {
-            margin: 0;
-            font-size: 20px;
-            font-weight: 700;
-        }
-
-        .subtitle {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 14px;
+            margin-bottom: 15px;
         }
 
         input {
@@ -104,47 +120,65 @@
         }
 
         .hidden {
-            display: none;
+            display: none !important;
         }
 
-        .stats-grid {
+        /* إحصائيات سريعة متجاورة فخمة */
+        .stats-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
-        .stat-card {
+        .mini-stat {
             background: var(--bg-main);
             border: 1px solid var(--border-color);
-            padding: 15px;
-            border-radius: 12px;
+            padding: 12px;
+            border-radius: 10px;
             text-align: center;
         }
 
-        .stat-card span {
-            display: block;
-            font-size: 12px;
+        .mini-stat span {
+            font-size: 11px;
             color: var(--text-muted);
-            margin-bottom: 5px;
+            display: block;
+            margin-bottom: 4px;
         }
 
-        .switch-box {
+        .mini-stat strong {
+            font-size: 14px;
+        }
+
+        /* صناديق التحكم الفخمة */
+        .control-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
             background: var(--bg-main);
             border: 1px solid var(--border-color);
-            padding: 14px 16px;
+            padding: 12px 16px;
             border-radius: 12px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
+        }
+
+        .control-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .control-info span {
+            font-weight: 600;
+            font-size: 14px;
         }
 
         .status-badge {
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 6px;
+            width: fit-content;
         }
 
         .status-on {
@@ -159,7 +193,7 @@
 
         .btn-sm {
             width: auto;
-            padding: 6px 14px;
+            padding: 8px 16px;
             font-size: 12px;
             border-radius: 8px;
         }
@@ -168,57 +202,62 @@
             color: var(--danger);
             font-size: 13px;
             margin-top: 10px;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
-    <div class="dashboard-container">
-        <!-- شاشة تسجيل الدخول الفخمة -->
-        <div id="login-screen" class="card">
-            <div class="header-title">
-                <span>🔐</span>
-                <h2>تسجيل المشرف</h2>
+    <div class="admin-layout">
+        <!-- شاشة تسجيل الدخول -->
+        <div id="login-screen" class="content-body">
+            <div class="card" style="margin-bottom: 0;">
+                <h2 style="margin-top: 0; margin-bottom: 6px;">🔐 تسجيل المشرف</h2>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 20px;">أدخل كلمة المرور للوصول للوحة التحكم الفخمة</p>
+                
+                <input type="password" id="password" placeholder="كلمة المرور">
+                <button class="btn" onclick="checkLogin()">دخول آمن</button>
+                <p id="error-msg"></p>
             </div>
-            <p class="subtitle">أدخل كلمة المرور للوصول إلى لوحة التحكم الآمنة</p>
-            
-            <input type="password" id="password" placeholder="كلمة المرور">
-            <button class="btn" onclick="checkLogin()">دخول لوحة التحكم</button>
-            <p id="error-msg"></p>
         </div>
 
-        <!-- لوحة التحكم الفعلية المودرن -->
-        <div id="admin-panel" class="card hidden">
-            <div class="header-title">
-                <span>🎛️</span>
-                <h2>لوحة تحكم الموقع</h2>
-            </div>
-            <p class="subtitle">إدارة وحالة أقسام ومشاريع مختبر محمد</p>
-            
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <span>حالة النظام</span>
-                    <strong style="color: var(--success);">متصل بالآمان</strong>
-                </div>
-                <div class="stat-card">
-                    <span>المشاريع</span>
-                    <strong style="color: var(--accent-blue);">نشطة</strong>
-                </div>
+        <!-- لوحة التحكم الحقيقية الفخمة -->
+        <div id="admin-panel" class="hidden">
+            <div class="top-bar">
+                <h2>🎛️ لوحة تحكم الموقع</h2>
+                <span>مختبر محمد</span>
             </div>
 
-            <div class="switch-box">
-                <span>لعبة التحدي</span>
-                <span id="game-status-text" class="status-badge status-on">جار التحميل...</span>
-                <button class="btn btn-sm" onclick="toggleStatus('game')">تغيير</button>
-            </div>
+            <div class="content-body">
+                <div class="stats-row">
+                    <div class="mini-stat">
+                        <span>حالة الحماية</span>
+                        <strong style="color: var(--success);">مرتبط بالوسيط</strong>
+                    </div>
+                    <div class="mini-stat">
+                        <span>إدارة المشاريع</span>
+                        <strong style="color: var(--accent-blue);">نشطة وكاملة</strong>
+                    </div>
+                </div>
 
-            <div class="switch-box">
-                <span>الآلة الحاسبة</span>
-                <span id="calc-status-text" class="status-badge status-on">جار التحميل...</span>
-                <button class="btn btn-sm" onclick="toggleStatus('calc')">تغيير</button>
+                <div class="control-row">
+                    <div class="control-info">
+                        <span>لعبة التحدي</span>
+                        <span id="game-status-text" class="status-badge status-on">جار التحميل...</span>
+                    </div>
+                    <button class="btn btn-sm" onclick="toggleStatus('game')">تغيير</button>
+                </div>
+
+                <div class="control-row">
+                    <div class="control-info">
+                        <span>الآلة الحاسبة</span>
+                        <span id="calc-status-text" class="status-badge status-on">جار التحميل...</span>
+                    </div>
+                    <button class="btn btn-sm" onclick="toggleStatus('calc')">تغيير</button>
+                </div>
+                
+                <button class="btn btn-danger btn-sm" onclick="logout()" style="width: 100%; margin-top: 15px;">تسجيل الخروج</button>
             </div>
-            
-            <button class="btn btn-danger" onclick="logout()" style="margin-top: 15px;">تسجيل الخروج</button>
         </div>
     </div>
 
@@ -271,9 +310,7 @@
                 let decodedContent = JSON.parse(decodeURIComponent(escape(atob(data.content))));
                 currentConfig = decodedContent;
                 updateUI();
-            } catch (e) {
-                // تجاهل خطأ التحميل المبدئي
-            }
+            } catch (e) {}
         }
 
         function updateUI() {
@@ -307,9 +344,7 @@
                     let result = await response.json();
                     fileSha = result.content.sha;
                 }
-            } catch (err) {
-                // صمت الخطأ مؤقتاً
-            }
+            } catch (err) {}
         }
 
         function logout() {
