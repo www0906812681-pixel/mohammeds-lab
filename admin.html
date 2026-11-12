@@ -8,7 +8,6 @@
         :root {
             --bg-main: #0b0f19;
             --bg-card: #111827;
-            --bg-card-hover: #1f2937;
             --border-color: #1e293b;
             --accent-blue: #3b82f6;
             --accent-blue-hover: #2563eb;
@@ -40,9 +39,8 @@
             border: 1px solid var(--border-color);
             padding: 25px;
             border-radius: 16px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
             margin-bottom: 20px;
-            transition: all 0.3s ease;
         }
 
         .header-title {
@@ -75,7 +73,6 @@
             box-sizing: border-box;
             font-size: 14px;
             outline: none;
-            transition: border-color 0.2s;
         }
 
         input:focus {
@@ -92,15 +89,11 @@
             font-weight: 600;
             width: 100%;
             font-size: 14px;
-            transition: background 0.2s, transform 0.1s;
+            transition: background 0.2s;
         }
 
         .btn:hover {
             background: var(--accent-blue-hover);
-        }
-
-        .btn:active {
-            transform: scale(0.98);
         }
 
         .btn-danger {
@@ -136,10 +129,6 @@
             margin-bottom: 5px;
         }
 
-        .stat-card strong {
-            font-size: 16px;
-        }
-
         .switch-box {
             display: flex;
             justify-content: space-between;
@@ -149,11 +138,6 @@
             padding: 14px 16px;
             border-radius: 12px;
             margin-bottom: 12px;
-        }
-
-        .switch-box span {
-            font-weight: 500;
-            font-size: 14px;
         }
 
         .status-badge {
@@ -282,13 +266,13 @@
                 let res = await fetch(WORKER_URL);
                 if (!res.ok) throw new Error("Worker Error");
                 
-                let data =.await ? res.json() : await res.json();
+                let data = await res.json();
                 fileSha = data.sha;
                 let decodedContent = JSON.parse(decodeURIComponent(escape(atob(data.content))));
                 currentConfig = decodedContent;
                 updateUI();
             } catch (e) {
-                // تجاهل خطأ التحميل المبدئي عشان ما يزعج المستخدم
+                // تجاهل خطأ التحميل المبدئي
             }
         }
 
@@ -324,7 +308,7 @@
                     fileSha = result.content.sha;
                 }
             } catch (err) {
-                // صمت الخطأ مؤقتاً لتجربة سلسة
+                // صمت الخطأ مؤقتاً
             }
         }
 
