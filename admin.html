@@ -7,8 +7,8 @@
     <style>
         body { font-family: Tahoma, sans-serif; background: #0f172a; color: #f8fafc; padding: 20px; text-align: center; }
         .card { background: #1e293b; padding: 20px; border-radius: 12px; max-width: 400px; margin: 40px auto; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-        input { padding: 10px; width: 80%; border-radius: 6px; border: 1px solid #475569; background: #0f172a; color: #fff; margin-bottom: 15px; }
-        button { background: #3b82f6; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        input { padding: 10px; width: 85%; border-radius: 6px; border: 1px solid #475569; background: #0f172a; color: #fff; margin-bottom: 12px; text-align: center; }
+        button { background: #3b82f6; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; width: 90%; }
         button:hover { background: #2563eb; }
         .hidden { display: none; }
         .switch-box { display: flex; justify-content: space-between; align-items: center; background: #334155; padding: 10px 15px; border-radius: 8px; margin: 10px 0; }
@@ -21,11 +21,13 @@
     <!-- شاشة تسجيل الدخول -->
     <div id="login-screen" class="card">
         <h2>🔒 دخول المشرف</h2>
-        <p>الرجاء إدخال كلمة المرور للوصول للوحة التحكم</p>
-        <input type="password" id="password" placeholder="كلمة المرور">
-        <br>
-        <button onclick="checkLogin()">دخول</button>
-        <p id="error-msg" style="color: #ef4444; margin-top: 10px;"></p>
+        <p style="font-size: 13px; color: #94a3b8;">أدخل كلمة المرور ورمز GitHub الخاص بك</p>
+        
+        <input type="password" id="password" placeholder="كلمة المرور (admin)">
+        <input type="password" id="github-token" placeholder="رمز الوصول (ghp_...)">
+        
+        <button onclick="checkLogin()">دخول للوحة التحكم</button>
+        <p id="error-msg" style="color: #ef4444; margin-top: 10px; font-size: 13px;"></p>
     </div>
 
     <!-- لوحة التحكم الفعلية -->
@@ -36,21 +38,25 @@
         <div class="switch-box">
             <span>لعبة التحدي:</span>
             <span id="game-status-text" class="status-on">جار التحميل...</span>
-            <button onclick="toggleStatus('game')">تغيير الحالة</button>
+            <button style="width: auto;" onclick="toggleStatus('game')">تغيير</button>
         </div>
 
         <div class="switch-box">
             <span>الآلة الحاسبة:</span>
             <span id="calc-status-text" class="status-on">جار التحميل...</span>
-            <button onclick="toggleStatus('calc')">تغيير الحالة</button>
+            <button style="width: auto;" onclick="toggleStatus('calc')">تغيير</button>
         </div>
         
-        <p style="font-size: 12px; color: #94a3b8; margin-top: 20px;">ملاحظة: التعديلات سيتم حفظها وربطها بالموقع فوراً.</p>
+        <button onclick="logout()" style="background: #ef4444; margin-top: 20px;">تسجيل الخروج</button>
     </div>
 
     <script>
-        // كلمة السر المشفرة الخاصة بـ admin
-        const correctHash = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918";
+        const correctHash = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"; // كلمة السر admin
+        const REPO_NAME = "www0906/www090612681-pixel";
+
+        let userToken = localStorage.getItem('gh_admin_token') || "";
+        let currentConfig = { game_status: true, calculator_status: true };
+        let fileSha = "";
 
         async function sha256(message) {
             const msgBuffer = new TextEncoder().encode(message);
@@ -59,10 +65,27 @@
             return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
         }
 
+        // التثبت التلقائي لو الرمز محفوظ في المتصفح سابقاً
+        window.onload = function() {
+            if (userToken) {
+                document.getElementById('github-token').value = userToken;
+            }
+        };
+
         async function checkLogin() {
             const pass = document.getElementById('password').value;
+            const tokenInput = document.getElementById('github-token').value.trim();
+
+            if (!tokenInput.startsWith('ghp_')) {
+                document.getElementById('error-msg').innerText = "الرجاء إدخال رمز GitHub صحفي يبدأ بـ ghp_";
+                return;
+            }
+
             const hash = await sha256(pass);
             if (hash === correctHash) {
+                userToken = tokenInput;
+                localStorage.setItem('gh_admin_token', userToken); // حفظ آمن في متصفح تلفونك فقط
+                
                 document.getElementById('login-screen').classList.add('hidden');
                 document.getElementById('admin-panel').classList.remove('hidden');
                 loadConfigStatus();
@@ -71,15 +94,22 @@
             }
         }
 
-        let currentConfig = { game_status: true, calculator_status: true };
-
         async function loadConfigStatus() {
             try {
-                let res = await fetch('config.json?' + new Date().getTime());
-                currentConfig = await res.json();
+                let res = await fetch(`https://api.github.com/repos/${REPO_NAME}/contents/config.json`, {
+                    headers: { 'Authorization': `token ${userToken}` }
+                });
+                
+                if (!res.ok) throw new Error("Token Error");
+                
+                let data = await res.json();
+                fileSha = data.sha;
+                let decodedContent = JSON.parse(decodeURIComponent(escape(atob(data.content))));
+                currentConfig = decodedContent;
                 updateUI();
             } catch (e) {
-                alert("فشل في تحميل الإعدادات");
+                alert("فشل الاتصال بجيت هاب! تأكد من صحة الرمز السري.");
+                logout();
             }
         }
 
@@ -91,11 +121,44 @@
             document.getElementById('calc-status-text').className = currentConfig.calculator_status ? "status-on" : "status-off";
         }
 
-        function toggleStatus(type) {
+        async function toggleStatus(type) {
             if (type === 'game') currentConfig.game_status = !currentConfig.game_status;
             if (type === 'calc') currentConfig.calculator_status = !currentConfig.calculator_status;
+            
             updateUI();
-            alert("تم تغيير الحالة محلياً! في الخطوة القادمة سنربطها بيتاً ليتم الحفظ التلقائي في جيت هاب.");
+            
+            try {
+                let jsonString = JSON.stringify(currentConfig, null, 2);
+                let encodedContent = btoa(unescape(encodeURIComponent(jsonString)));
+
+                let response = await fetch(`https://api.github.com/repos/${REPO_NAME}/contents/config.json`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${userToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: "Update config via Admin Dashboard",
+                        content: encodedContent,
+                        sha: fileSha
+                    })
+                });
+
+                if (response.ok) {
+                    let result = await response.json();
+                    fileSha = result.content.sha;
+                    alert("تم حفظ التعديل بنجاح في الموقع! 🚀");
+                } else {
+                    alert("فشل الحفظ! تأكد من صلاحيات الرمز.");
+                }
+            } catch (err) {
+                alert("حدث خطأ أثناء حفظ التعديلات!");
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('gh_admin_token');
+            location.reload();
         }
     </script>
 </body>
