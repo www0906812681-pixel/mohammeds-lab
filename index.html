@@ -268,13 +268,33 @@
     function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
     // دوال الحاسبة
-    const calcDisplay = document.getElementById('calcDisplay');
-    function pressCalc(val) { calcDisplay.value += val; }
-    function clearCalc() { calcDisplay.value = ''; }
-    function solveCalc() {
-      try { calcDisplay.value = eval(calcDisplay.value); } 
-      catch { calcDisplay.value = 'خطأ'; }
+    const WORKER_URL = "https://purple-glitter-8ef3.myasimmyasimmohammed.workers.dev";
+
+async function openModal(id) {
+  if (id === "calcModal") {
+    try {
+      const response = await fetch(WORKER_URL, { cache: "no-store" });
+      if (!response.ok) throw new Error("تعذر قراءة الإعدادات");
+
+      const data = await response.json();
+      const binary = atob(data.content.replace(/\s/g, ""));
+      const bytes = Uint8Array.from(binary, char => char.charCodeAt(0));
+      const config = JSON.parse(new TextDecoder().decode(bytes));
+
+      if (config.calculator_status === false) {
+        alert("الحاسبة متوقفة حاليًا.");
+        return;
+      }
+    } catch (error) {
+      alert("ما قدرنا نتحقق من حالة الحاسبة. حاول مرة تانية.");
+      return;
     }
+  }
+
+  document.getElementById(id).classList.add("active");
+}
+
+    
 
     // دالة حاسبة سنة الميلاد
     function calcAge() {
