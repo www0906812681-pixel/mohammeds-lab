@@ -42,7 +42,6 @@
             overflow: hidden;
         }
 
-        /* رأس اللوحة الفخم */
         .top-bar {
             background: var(--bg-card);
             padding: 20px;
@@ -115,6 +114,7 @@
         .btn-danger {
             background: var(--danger);
         }
+
         .btn-danger:hover {
             background: #dc2626;
         }
@@ -123,7 +123,6 @@
             display: none !important;
         }
 
-        /* إحصائيات سريعة متجاورة فخمة */
         .stats-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -150,7 +149,6 @@
             font-size: 14px;
         }
 
-        /* صناديق التحكم الفخمة */
         .control-row {
             display: flex;
             justify-content: space-between;
@@ -209,19 +207,17 @@
 <body>
 
     <div class="admin-layout">
-        <!-- شاشة تسجيل الدخول -->
         <div id="login-screen" class="content-body">
             <div class="card" style="margin-bottom: 0;">
                 <h2 style="margin-top: 0; margin-bottom: 6px;">🔐 تسجيل المشرف</h2>
                 <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 20px;">أدخل كلمة المرور للوصول للوحة التحكم الفخمة</p>
-                
+
                 <input type="password" id="password" placeholder="كلمة المرور">
                 <button class="btn" onclick="checkLogin()">دخول آمن</button>
                 <p id="error-msg"></p>
             </div>
         </div>
 
-        <!-- لوحة التحكم الحقيقية الفخمة -->
         <div id="admin-panel" class="hidden">
             <div class="top-bar">
                 <h2>🎛️ لوحة تحكم الموقع</h2>
@@ -255,15 +251,15 @@
                     </div>
                     <button class="btn btn-sm" onclick="toggleStatus('calc')">تغيير</button>
                 </div>
-                
+
                 <button class="btn btn-danger btn-sm" onclick="logout()" style="width: 100%; margin-top: 15px;">تسجيل الخروج</button>
             </div>
         </div>
     </div>
 
     <script>
-        const correctHash = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"; 
-        const WORKER_URL = "https://mohammeds-lab-worker.mohammeds-lab.workers.dev";
+        const correctHash = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918";
+        const WORKER_URL = "https://purple-glitter-8ef3.myasimmyasimmohammed.workers.dev";
 
         let isLoggedIn = sessionStorage.getItem('is_admin_logged') === "true";
         let currentConfig = { game_status: true, calculator_status: true };
@@ -287,11 +283,11 @@
         async function checkLogin() {
             const pass = document.getElementById('password').value;
             const hash = await sha256(pass);
-            
+
             if (hash === correctHash) {
                 isLoggedIn = true;
                 sessionStorage.setItem('is_admin_logged', "true");
-                
+
                 document.getElementById('login-screen').classList.add('hidden');
                 document.getElementById('admin-panel').classList.remove('hidden');
                 loadConfigStatus();
@@ -304,13 +300,15 @@
             try {
                 let res = await fetch(WORKER_URL);
                 if (!res.ok) throw new Error("Worker Error");
-                
+
                 let data = await res.json();
                 fileSha = data.sha;
                 let decodedContent = JSON.parse(decodeURIComponent(escape(atob(data.content))));
                 currentConfig = decodedContent;
                 updateUI();
-            } catch (e) {}
+            } catch (e) {
+                console.error("تعذر تحميل حالة الإعدادات:", e);
+            }
         }
 
         function updateUI() {
@@ -327,9 +325,9 @@
         async function toggleStatus(type) {
             if (type === 'game') currentConfig.game_status = !currentConfig.game_status;
             if (type === 'calc') currentConfig.calculator_status = !currentConfig.calculator_status;
-            
+
             updateUI();
-            
+
             try {
                 let jsonString = JSON.stringify(currentConfig, null, 2);
                 let encodedContent = btoa(unescape(encodeURIComponent(jsonString)));
@@ -343,8 +341,12 @@
                 if (response.ok) {
                     let result = await response.json();
                     fileSha = result.content.sha;
+                } else {
+                    console.error("فشل حفظ الإعدادات:", await response.text());
                 }
-            } catch (err) {}
+            } catch (err) {
+                console.error("خطأ أثناء حفظ الإعدادات:", err);
+            }
         }
 
         function logout() {
